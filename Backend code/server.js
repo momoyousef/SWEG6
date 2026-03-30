@@ -1,13 +1,17 @@
-const express=require("express")
-const bodyParser=require("body-parser")
-const cors=require("cors")
-const routes=require("./routes")
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const routes = require("./routes");
 
-const app=express()
+const app = express();
 
-app.use(cors())
-app.use(bodyParser.json())
+app.use(cors());
+app.use(bodyParser.json());
 
-app.use("/api",routes)
+app.use(express.static("../frontend"));
 
-app.listen(3000,()=>{console.log("server is running")})
+app.use("/api", routes);
+
+app.listen(3000, () => {
+  console.log("server is running");
+});

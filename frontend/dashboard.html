@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LLM Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-Po1jb+oIEuwxJljeycd28PNldfWqOKISnVP6L7V645e3JnY8b1gn3aDLS0C4dxjnuRhgkC07jlBAX6zskMXKAA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         * {
             margin: 0;
@@ -13,7 +14,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f0f4f8;
             min-height: 100vh;
             padding: 20px;
         }
@@ -21,9 +22,9 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 18px 50px rgba(20, 30, 60, 0.09);
             overflow: hidden;
         }
 
@@ -199,6 +200,189 @@
             margin-top: 5px;
         }
 
+        /* Product Review Styles */
+        #productSelect {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        #productSelect:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, #f5f7ff 0%, #efe9ff 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .product-card h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .product-card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .rating-display {
+            font-size: 18px;
+            color: #ffa500;
+            font-weight: 600;
+        }
+
+        .review-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #e0e0e0;
+        }
+
+        .review-form h4 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .star-rating {
+            font-size: 28px;
+            cursor: pointer;
+            letter-spacing: 5px;
+            display: inline-block;
+        }
+
+        .star {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 3px rgba(255, 165, 0, 0.5));
+        }
+
+        .rating-feedback {
+            font-size: 12px;
+            color: #999;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        #reviewText {
+            width: 100% !important;
+        }
+
+        .review-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .clear-btn {
+            background: #bbb;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            background: #999;
+            transform: translateY(-2px);
+        }
+
+        .reviews-section {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .reviews-section h4 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .reviews-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .review-item {
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+            margin-bottom: 12px;
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .review-author {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .review-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .review-rating {
+            color: #ffa500;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .review-text {
+            font-size: 14px;
+            color: #666;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .no-reviews {
+            color: #999;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+
         @media (max-width: 600px) {
             .header {
                 flex-direction: column;
@@ -227,7 +411,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚀 LLM Dashboard</h1>
+            <h1><i class="fa-solid fa-robot"></i> LLM Dashboard</h1>
             <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
 
@@ -244,7 +428,7 @@
             </div>
 
             <div class="section">
-                <h3>💬 Ask the AI:</h3>
+                <h3><i class="fa-solid fa-comment-dots"></i> Ask the AI</h3>
                 <textarea
                     id="promptInput"
                     placeholder="Enter your prompt here... (e.g., 'Write a poem about nature')"
@@ -255,9 +439,54 @@
             </div>
 
             <div class="section">
-                <h3>📝 Response:</h3>
+                <h3><i class="fa-solid fa-reply"></i> Response</h3>
                 <div id="responseOutput">
                     <em>Awaiting input...</em>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3><i class="fa-solid fa-star"></i> Reviews</h3>
+                <div class="review-form">
+                    <h4>Leave a Review</h4>
+
+                    <div class="form-group">
+                        <label for="reviewAuthor">Author</label>
+                        <input id="reviewAuthor" type="text" placeholder="Your name" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>Rating:</strong></label>
+                        <div id="ratingStars" class="star-rating">
+                            <span class="star" data-value="1">☆</span>
+                            <span class="star" data-value="2">☆</span>
+                            <span class="star" data-value="3">☆</span>
+                            <span class="star" data-value="4">☆</span>
+                            <span class="star" data-value="5">☆</span>
+                        </div>
+                        <p class="rating-feedback" id="selectedRating">No rating selected</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reviewText"><strong>Your Review:</strong></label>
+                        <textarea
+                            id="reviewText"
+                            rows="4"
+                            placeholder="Share your ideas or feedback..."
+                        ></textarea>
+                    </div>
+
+                    <div class="review-buttons">
+                        <button class="submit-btn" onclick="submitReview()" id="submitReviewBtn">Submit Review</button>
+                        <button class="clear-btn" onclick="clearReviewForm()">Clear</button>
+                    </div>
+                </div>
+
+                <div class="reviews-section">
+                    <h4>Recent Reviews</h4>
+                    <div id="reviewsList" class="reviews-list">
+                        <p class="no-reviews">No recent reviews yet</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -291,12 +520,12 @@
                 if (res.ok) {
                     promptCounter++;
                     document.getElementById("promptCount").textContent = promptCounter;
-                    outputDiv.innerHTML = `<span class="success">✓ Generated:</span><br><br>${data.message || data.output || 'Response received'}`;
+                    outputDiv.innerHTML = `<span class="success"><i class="fa-solid fa-check"></i> Generated:</span><br><br>${escapeHtml(data.message || data.output || 'Response received')}`;
                 } else {
-                    outputDiv.innerHTML = `<div class="error">❌ Error: ${data.error || "Failed to fetch"}</div>`;
+                    outputDiv.innerHTML = `<div class="error"><i class="fa-solid fa-triangle-exclamation"></i> Error: ${escapeHtml(data.error || "Failed to fetch")}</div>`;
                 }
             } catch (error) {
-                outputDiv.innerHTML = `<div class="error">❌ Connection error. Is the server running?</div>`;
+                outputDiv.innerHTML = `<div class="error"><i class="fa-solid fa-triangle-exclamation"></i> Connection error. Is the server running?</div>`;
             } finally {
                 submitBtn.disabled = false;
             }
@@ -326,6 +555,121 @@
                 submitPrompt();
             }
         });
+
+        // Review system without product selection
+        let selectedRating = 0;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            setUpRatingStars();
+            loadReviews();
+        });
+
+        function setUpRatingStars() {
+            document.querySelectorAll(".star").forEach(star => {
+                star.addEventListener("click", function() {
+                    selectedRating = Number(this.getAttribute("data-value"));
+                    updateStarDisplay();
+                    document.getElementById("selectedRating").textContent = "Rating: " + selectedRating + " out of 5";
+                });
+            });
+        }
+
+        function updateStarDisplay() {
+            document.querySelectorAll(".star").forEach(star => {
+                const value = Number(star.getAttribute("data-value"));
+                star.textContent = value <= selectedRating ? "★" : "☆";
+            });
+        }
+
+        async function submitReview() {
+            const author = document.getElementById("reviewAuthor").value.trim();
+            const text = document.getElementById("reviewText").value.trim();
+
+            if (!author) {
+                alert("Please enter your name.");
+                return;
+            }
+            if (!selectedRating) {
+                alert("Please select a rating.");
+                return;
+            }
+            if (!text) {
+                alert("Please enter a review.");
+                return;
+            }
+
+            document.getElementById("submitReviewBtn").disabled = true;
+            try {
+                const response = await fetch("http://localhost:3000/api/reviews", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ author, rating: selectedRating, text }),
+                });
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.error || "Failed to submit review");
+                }
+
+                clearReviewForm();
+                loadReviews();
+                alert("Review submitted successfully.");
+            } catch (error) {
+                alert("Error: " + error.message);
+            } finally {
+                document.getElementById("submitReviewBtn").disabled = false;
+            }
+        }
+
+        function clearReviewForm() {
+            selectedRating = 0;
+            updateStarDisplay();
+            document.getElementById("reviewAuthor").value = "";
+            document.getElementById("reviewText").value = "";
+            document.getElementById("selectedRating").textContent = "No rating selected";
+        }
+
+        async function loadReviews() {
+            try {
+                const response = await fetch("http://localhost:3000/api/reviews");
+                if (!response.ok) throw new Error("Unable to fetch reviews");
+
+                const { reviews } = await response.json();
+
+                if (!reviews || reviews.length === 0) {
+                    document.getElementById("reviewsList").innerHTML = '<p class="no-reviews">No reviews yet. Be the first one!</p>';
+                    return;
+                }
+
+                let html = "";
+                reviews.forEach((review) => {
+                    html += `
+                        <div class="review-item">
+                            <div class="review-header">
+                                <span class="review-author">${escapeHtml(review.author)}</span>
+                                <span class="review-date">${new Date(review.created_at).toLocaleString()}</span>
+                            </div>
+                            <div class="review-rating">${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}</div>
+                            <p class="review-text">${escapeHtml(review.text)}</p>
+                        </div>
+                    `;
+                });
+
+                document.getElementById("reviewsList").innerHTML = html;
+            } catch (error) {
+                document.getElementById("reviewsList").innerHTML = `<p class="no-reviews">Error loading reviews: ${error.message}</p>`;
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return "";
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
     </script>
   </body>
 </html>
